@@ -1,0 +1,23 @@
+.result::-webkit-scrollbar{
+    
+    width: 0;
+    height:8px;
+    
+    
+}
+.result::-webkit-scrollbar-track{
+    background-color: transparent;
+   
+}
+
+
+.result::-webkit-scrollbar-thumb{
+    background-color:rgb(49,49,49);
+    border-radius: 80px;
+    height: 8px;
+}
+.result::-webkit-scrollbar-button:disabled{
+    visibility: hidden;
+    
+} 
+
