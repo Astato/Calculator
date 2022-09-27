@@ -1,23 +1,53 @@
-.result::-webkit-scrollbar{
+
+
+
+.resultcontainer::-webkit-scrollbar{
     
     width: 0;
     height:8px;
     
     
 }
-.result::-webkit-scrollbar-track{
+.resultcontainer::-webkit-scrollbar-track{
     background-color: transparent;
    
 }
 
 
-.result::-webkit-scrollbar-thumb{
+.resultcontainer::-webkit-scrollbar-thumb{
     background-color:rgb(49,49,49);
     border-radius: 80px;
     height: 8px;
 }
-.result::-webkit-scrollbar-button:disabled{
+.resultcontainer::-webkit-scrollbar-button:disabled{
     visibility: hidden;
     
 } 
 
+.darkgraybuttons{
+    background-color:rgb(49,49,49); 
+    color:rgb(253,253,253);
+    border-radius:50%; 
+    border: none; 
+    font-size:45px
+}
+
+
+
+.lightgraybuttons{
+    background-color:rgb(160,160,160);
+    color:black; 
+    border-radius:50%;
+    border: none; 
+    font-size:35px
+}
+
+
+.orangebuttons{
+
+    background-color:rgb(246,153,3);
+    color:rgb(245,245,245); 
+    border-radius:50% ;
+    border: none; 
+    font-size:50px
+}

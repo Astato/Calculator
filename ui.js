@@ -32,24 +32,22 @@ updateTime()
 
 
 
-const result = document.createElement("div");
-result.classList.add("result");
-result.setAttribute("style",
+const resultContainer = document.createElement("div");
+resultContainer.classList.add("resultcontainer");
+resultContainer.setAttribute("style",
 "display:grid; grid-template-rows: repeat(3,auto);color:white; margin:auto; width:429px;height:237px; margin-top:-30px")
 
 const line0 = document.createElement("div");
 const line1 = document.createElement("div");
 
-const resultLine = document.createElement("div");
-resultLine.classList.add("resultline")
-resultLine.setAttribute("style",
+const result = document.createElement("div");
+result.classList.add("result")
+result.setAttribute("style",
 "position:relative;bottom:45%; margin-right:40px;text-align:right;font-size:100px; height:0; font-weight: 1;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;")
-resultLine.textContent = 0;
+result.textContent = 0;
 
 
-result.append(line0,line1,resultLine)
-
-
+resultContainer.append(line0,line1,result)
 
 
 const buttonscontainer = document.createElement("div");
@@ -57,7 +55,7 @@ buttonscontainer.classList.add("buttonscontainer")
 buttonscontainer.setAttribute("style","display:grid; grid-template-rows:repeat(5,80px);grid-template-columns: repeat(4,80px); gap:20px; padding: 12px 50px  50px; ")
 
 body.appendChild(container)
-container.append(result,buttonscontainer)
+container.append(resultContainer,buttonscontainer)
 
 
 let index = 0;
@@ -87,10 +85,8 @@ let lightButton = 0;
 const filter = Array.from(buttons).filter(name => {
 
     if(name.id === "button"+orangeButton){
-        name.classList.add("orange")
-        name.setAttribute("style","background-color:rgb(246,153,3);color:rgb(245,245,245); border-radius:50% ;border: none; font-size:50px")
+        name.classList.add("orangebuttons")
         if(orangeButton === 15){
-            console.log(orangeButton)
             orangeButton +=3
         }
         else{
@@ -98,23 +94,19 @@ const filter = Array.from(buttons).filter(name => {
 
     }
    else if (name.id === "button"+lightButton ){
-        name.classList.add("lightgray")
-        name.setAttribute("style","background-color:rgb(160,160,160);color:black; border-radius:50%;border: none; font-size:35px")
+        name.classList.add("lightgraybuttons")
         lightButton +=1
     }
     else{
-        name.classList.add("darkgray")
-        name.setAttribute("style","background-color:rgb(49,49,49); color:rgb(253,253,253);border-radius:50%; border: none; font-size:45px")
+        name.classList.add("darkgraybuttons")
     }
+    return;
 })
-
-
-
 
 
 ///lightgray Buttons AC , +/- , %
 
-   { const buttonAC = document.getElementById("button0");
+   const buttonAC = document.getElementById("button0");
     buttonAC.setAttribute("id","buttonac")
     buttonAC.textContent = "AC";
    
@@ -125,11 +117,11 @@ const filter = Array.from(buttons).filter(name => {
     const buttonPercentage = document.getElementById("button2");
     buttonPercentage.setAttribute("id","buttonpercentage")
     buttonPercentage.textContent = "%";
-  }
+  
 
 
-//// orange Buttons and Dot(comma)
-{
+//// orange Buttons and comma
+
     const buttonDivision = document.getElementById("button3");
     buttonDivision.setAttribute("id","buttondivision")
     buttonDivision.textContent= "÷";
@@ -154,18 +146,15 @@ const filter = Array.from(buttons).filter(name => {
     const buttonDot = document.getElementById("button17");
     buttonDot.setAttribute("id","buttondot")
     buttonDot.textContent =".";
-}
 
 
-
-
-{ ////  Numbers
+////  Numbers
    
     const buttonZero = document.getElementById("button16") 
     buttonZero.setAttribute("style",
     "grid-column:span 2;background-color:rgb(49,49,49); color:rgb(253,253,253);border-radius:32% / 80% ;border: none;text-align:left;padding-left: 25px; font-size:43px;   ")
     buttonZero.setAttribute("id","buttonzero")
-    buttonZero.textContent =0;
+    buttonZero.textContent = 0;
 
     const button1 = document.getElementById("button12");
     button1.setAttribute("id","button1")
@@ -202,32 +191,25 @@ const filter = Array.from(buttons).filter(name => {
     const button9 = document.getElementById("button6");
     button9.setAttribute("id","button0")
     button9.textContent = 9;
-}
 
 
-
-
-////////button darkgrat animation rgb(116,113,115) (aprox)
-////// button ligth gray animation rgb(216,216,216)
-///// button orange animation rbg(254,220,184 ) rgba(243,228,218) /(white)
-/////    same for plus symbol rbg(254,220,184 ) rgb(254,180,82) then orange and revert
 
 function adjustFontSize(){
 
-    if(resultLine.textContent.length <=5){
-        result.setAttribute("style",
+    if(result.textContent.length <=5){
+        resultContainer.setAttribute("style",
         "display:grid; grid-template-rows: repeat(3,auto);color:white; margin:auto; width:429px;height:237px; margin-top:-30px; overflow-x:hidden")
-        resultLine.setAttribute("style",
+        result.setAttribute("style",
 "position:relative;bottom:45%; margin-right:40px;text-align:right;font-size:100px; height:0; font-weight: 1;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;")
     }
-   else if(resultLine.textContent.length >5 && resultLine.textContent.length <9){
-        resultLine.setAttribute("style",
+   if(result.textContent.length >5 && result.textContent.length <9){
+        result.setAttribute("style",
 "position:relative;bottom:25%; margin-right:40px;text-align:right;font-size:70px; height:0; font-weight: 1;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;")
     }
-    else if(resultLine.textContent.length >9) {
-        result.setAttribute("style",
+    else if(result.textContent.length >9) {
+        resultContainer.setAttribute("style",
         "display:grid; grid-template-rows: repeat(3,auto);color:white; margin:auto; width:429px;height:237px; margin-top:-30px; overflow-x:scroll")
-     resultLine.setAttribute("style",
+     result.setAttribute("style",
     "position:relative;bottom:1%; margin-right:40px;text-align:right;font-size:50px; height:0; font-weight: 1;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;")
         
     }
@@ -237,97 +219,150 @@ function adjustFontSize(){
 }
 
 
+const lightgrayAnimation = document.getElementsByClassName("lightgraybuttons") ;
+Array.from(lightgrayAnimation).forEach(element => {
 
-function calculues(a,b,current){
-    return (a+b)+current;
+    element.addEventListener("pointerdown",()=>{
+        element.setAttribute("style", "transition: all 0.06s;background-color:rgb(216,216,216)")
+        
+    });
+    element.addEventListener("pointerup", ()=>{
+        element.setAttribute("style","lightgraybuttons")
+    });
+});
+
+
+const orangeAnimation= document.getElementsByClassName("orangebuttons");
+Array.from(orangeAnimation).forEach(element =>{
+
+    element.addEventListener("pointerdown",()=>{ 
+        element.setAttribute("style","transition: all 0.06s; background-color:rgb(254,220,184);color:rgb(246,153,3)")
+    });
+    element.addEventListener("pointerup",()=>{
+        element.setAttribute("style","orangebuttons")
+    });
+
+});
+
+
+
+const darkgrayButtons = document.getElementsByClassName("darkgraybuttons");  
+Array.from(darkgrayButtons).forEach(element =>{
+
+    if(element.id !== "buttonzero"){
+
+        element.addEventListener("pointerdown",()=>{
+            
+            element.setAttribute("style","transition: all 0.06s; background-color:rgb(114,114,114); ")
+        });
+
+        element.addEventListener("pointerup",()=>{
+            element.setAttribute("style","darkgraybuttons; ")
+        });
+    }
+
+    else{
+        element.addEventListener("pointerdown",()=>{
+     
+            element.setAttribute("style", 
+            "transition:all 0.06; grid-column:span 2;background-color:rgb(114,114,114); color:rgb(253,253,253);border-radius:32% / 80% ;border: none;text-align:left;padding-left: 25px; font-size:43px; ")
+        });
+        element.addEventListener("pointerup",()=>{
+            element.setAttribute("style",
+            "grid-column:span 2;background-color:rgb(49,49,49); color:rgb(253,253,253);border-radius:32% / 80% ;border: none;text-align:left;padding-left: 25px; font-size:43px")
+        });
+    }
+
+});
+
+
+
+let firstValue ;
+let secondValue ;
+let doMath = false;
+
+
+function buttondivision(a,b){
+    result.textContent = a/b;
+    return a/b;
+}
+
+
+function buttonmultiply(a,b){
+    result.textContent = a*b;
+    return a*b;
+}
+
+function  buttonminus(a,b){
+    result.textContent = a-b;
+    return a-b;
+}
+
+function buttonplus(a,b){
+    result.textContent = a+b;
+    return a+b;
 }
 
 
 
 
-const lightgrayAnimation = document.getElementsByClassName("lightgray") ;
+let currentValue;
 
-Array.from(lightgrayAnimation).forEach(element => {
-    element.addEventListener("pointerdown",()=>{
-        if(element.id == "buttonac"){
-            resultLine.textContent = 0;
+
+Array.from(buttons).forEach(button => {
+
+    button.addEventListener("click",()=>{
+
+        if(button.id === buttonAC.id){
+            result.textContent = 0;
             adjustFontSize()
+            secondValue = undefined;
+            firstValue = undefined;
+        
         }
-        element.setAttribute("style",
-        "transition: all 0.06s; background-color:rgb(216,216,216);color:black; border-radius:50%;border: none; font-size:35px")
-        
-    });
-    element.addEventListener("pointerup", ()=>{
-        element.setAttribute("style",
-        "transition:all 0.06s; background-color:rgb(160,160,160);color:black; border-radius:50%;border: none; font-size:35px")
-    });
-});
 
-const orangeAnimation= document.getElementsByClassName("orange");
 
-Array.from(orangeAnimation).forEach(element =>{
+        else if(button.className ==="buttons darkgraybuttons"){
 
-    element.addEventListener("pointerdown",()=>{
-        
-        if(element.textContent === "+"){
+            if(result.textContent == 0 || doMath === true){
+                result.textContent = button.textContent;
+                doMath = false;
+            }
+            else{
+                adjustFontSize()
+                result.textContent += button.textContent;
+                
+            }
             
         }
 
-        element.setAttribute("style",
-        "transition: all 0.06s; background-color:rgb(254,220,184);color:rgb(246,153,3); border-radius:50% ;border: none; font-size:50px")
-    });
-    element.addEventListener("pointerup",()=>{
-        element.setAttribute("style",
-        "transition: all 0.06; background-color:rgb(246,153,3);color:rgb(245,245,245); border-radius:50% ;border: none; font-size:50px")
-    });
-
-});
-
-console.log(resultLine.textContent.length)
-
-
-
-
-const darkgrayAnimation = document.getElementsByClassName("darkgray");  
-
-Array.from(darkgrayAnimation).forEach(element =>{
-   
-    if(element.id !== "buttonzero"){
-
-        element.addEventListener("pointerdown",()=>{
-            adjustFontSize()
-            if(resultLine.textContent == 0 ){
-                resultLine.textContent = element.textContent; 
+        else if(button.id !== buttonAC.id){
+            let Makecalculus = button.id;
+            if(button.id !== buttonEqual.id && firstValue === undefined && doMath === false){
+                firstValue = Number(result.textContent);
+                doMath = true;
             }
-            else{
-                resultLine.textContent+=element.textContent
+            else if(firstValue !== undefined && doMath ===false && secondValue === undefined){
+                secondValue = Number(result.textContent) 
+                doMath = true;
+
+               
+                let calculus = window[Makecalculus](firstValue,secondValue)
+                return calculus,  secondValue = Number(result.textContent), currentValue = calculus,
+                result.textContent = currentValue, firstValue = currentValue, secondValue = undefined;
+
+
+
             }
-            element.setAttribute("style", 
-            "transition:all 0.06s; background-color:rgb(114,114,114); color:rgb(253,253,253);border-radius:50%; border: none; font-size:45px")
-        
 
-          
-        });
+       
 
-        element.addEventListener("pointerup",()=>{
-            element.setAttribute("style",
-            "transition:all 0.06; background-color:rgb(49,49,49); color:rgb(253,253,253);border-radius:50%; border: none; font-size:45px")
-        });
-    }
-    else{
-        element.addEventListener("pointerdown",()=>{
-            if(resultLine.textContent !== 0 && resultLine.textContent >0){
-                resultLine.textContent += element.textContent; 
-            }
-            adjustFontSize()
-            element.setAttribute("style", 
-            "transition:all 0.06s; grid-column:span 2;background-color:rgb(114,114,114); color:rgb(253,253,253);border-radius:32% / 80% ;border: none;text-align:left;padding-left: 25px; font-size:43px")
-        });
+        }
 
-        element.addEventListener("pointerup",()=>{
-            element.setAttribute("style",
-            "transition:all 0.06; grid-column:span 2;background-color:rgb(49,49,49); color:rgb(253,253,253);border-radius:32% / 80% ;border: none;text-align:left;padding-left: 25px; font-size:43px")
-        });
-    }
 
+
+
+
+
+    })
 });
