@@ -232,27 +232,31 @@ Array.from(lightgrayAnimation).forEach(element => {
 });
 
 
+
 const orangeAnimation= document.getElementsByClassName("orangebuttons");
+
+let waitForInput;
+
 Array.from(orangeAnimation).forEach(element =>{
 
     element.addEventListener("pointerdown",()=>{ 
         element.setAttribute("style","transition: all 0.06s; background-color:rgb(254,220,184);color:rgb(246,153,3)")
+        waitForInput = element;
+     
     });
-    element.addEventListener("pointerup",()=>{
-        element.setAttribute("style","orangebuttons")
+    element.addEventListener("pointerup", ()=>{
+        if(element.id === buttonEqual.id){
+        element.setAttribute("style","orangebuttons")}
     });
 
 });
 
 
-
 const darkgrayButtons = document.getElementsByClassName("darkgraybuttons");  
 Array.from(darkgrayButtons).forEach(element =>{
-
     if(element.id !== "buttonzero"){
 
         element.addEventListener("pointerdown",()=>{
-            
             element.setAttribute("style","transition: all 0.06s; background-color:rgb(114,114,114); ")
         });
 
@@ -279,7 +283,7 @@ Array.from(darkgrayButtons).forEach(element =>{
 
 let firstValue ;
 let secondValue ;
-let doMath = false;
+// let doMath = false;
 
 
 function buttondivision(a,b){
@@ -308,33 +312,56 @@ function buttonplus(a,b){
 
 
 
+
+
+
+
+
+
 let currentValue = "";
 let currentOperation = "";
+let sliceIndex = 0;
+let sliceposition = 0;
+
+
+function doMath(){
+    let calculus = window[currentOperation](firstValue, Number(currentValue))
+    firstValue = calculus;
+    currentValue = ""
+    currentOperation = "";
+    return calculus;
+}
+
 
 Array.from(buttons).forEach(button => {
 
+    
     button.addEventListener("click",()=>{
 
-    
-        if(button.id === buttonAC.id){
+        if(button.id === buttonAC.id && buttonAC.textContent == "AC"){
             result.textContent = 0;
             adjustFontSize()
-            secondValue = currentValue;
             firstValue = undefined;
         
+        }
+        else if(button.id === buttonAC.id && buttonAC.textContent == "C"){
+            result.textContent = 0;
+            currentValue = "";
+            buttonAC.textContent = "AC"
+            adjustFontSize()
         }
 
 
         if(button.className === "buttons darkgraybuttons"){
 
-            if(result.textContent == 0 || doMath === true){
+            if(result.textContent == 0 ){    ///|| doMath === true
                 result.textContent = button.textContent;
-                doMath = false;
+                // doMath = false;
             }
             else{
                 adjustFontSize()
+                buttonAC.textContent = "C";
                 result.textContent += button.textContent;
-                
             }         
         }
 
@@ -348,37 +375,40 @@ Array.from(buttons).forEach(button => {
 
             if(button.className ==="buttons darkgraybuttons"){
                 currentValue += Number(button.textContent);
-            }
-            
+
+                if(waitForInput !== undefined ){
+                waitForInput.setAttribute("style","orangebuttons")
+                result.textContent = currentValue;
+                }
+
+            }    
             else if(firstValue === undefined && button.className === "buttons orangebuttons" && button.id !== buttonEqual.id){
-                firstValue = currentValue
-                firstValue = Number(firstValue)
-                currentValue = "";
-                currentOperation = button.id;
-                result.textContent = 0;
-
-            }else if(button.className === "buttons orangebuttons" && button.id !== buttonEqual.id){
-                firstValue = firstValue;
-                currentOperation = button.id;
-                result.textContent = 0;
-
-            }
-
-        else if(currentOperation !== "" && button.id === buttonEqual.id){
-            let calculus = window[currentOperation](firstValue, Number(currentValue))
-            firstValue = calculus;
-            currentValue = ""
-            currentOperation = "";
-            return calculus;
+                firstValue = currentValue ///// when operator clicked, saves the value to the "firstValue variable"
+                firstValue = Number(firstValue) //// converts value to number
+                currentValue = ""; //// resets the current value already stored in first value, ready to enter second value
+                currentOperation = button.id; ///// saves cureent operator
+                result.textContent =  firstValue; /// shows entered value
         
-        }
+            }
+            else if(button.className === "buttons orangebuttons" && button.id !== buttonEqual.id){ ///// if firstvalue has a number
+                firstValue = firstValue; //// keep it;
+                result.textContent = firstValue; //// show input;
+                doMath();
+                currentOperation = button.id; //// if user changes operation replace it;
+               
+
+            } 
+        
+            else if(currentOperation !== "" || button.id === buttonEqual.id){
+
+                doMath();
+            
+            };
       
+        };
 
-}
+    });
 
-
-
-    })
 });
 
 
@@ -408,3 +438,8 @@ Array.from(buttons).forEach(button => {
        
 
         // }
+
+
+
+
+     
