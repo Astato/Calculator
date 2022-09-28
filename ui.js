@@ -320,8 +320,7 @@ function buttonplus(a,b){
 
 let currentValue = "";
 let currentOperation = "";
-let sliceIndex = 0;
-let sliceposition = 0;
+
 
 
 function doMath(){
@@ -335,7 +334,6 @@ function doMath(){
 
 Array.from(buttons).forEach(button => {
 
-    
     button.addEventListener("click",()=>{
 
         if(button.id === buttonAC.id && buttonAC.textContent == "AC"){
@@ -362,6 +360,7 @@ Array.from(buttons).forEach(button => {
                 adjustFontSize()
                 buttonAC.textContent = "C";
                 result.textContent += button.textContent;
+                
             }         
         }
 
@@ -393,15 +392,16 @@ Array.from(buttons).forEach(button => {
             else if(button.className === "buttons orangebuttons" && button.id !== buttonEqual.id){ ///// if firstvalue has a number
                 firstValue = firstValue; //// keep it;
                 result.textContent = firstValue; //// show input;
-                doMath();
+                if(currentOperation !== ""){
+                doMath()}
                 currentOperation = button.id; //// if user changes operation replace it;
                
 
             } 
         
             else if(currentOperation !== "" || button.id === buttonEqual.id){
+                doMath()
 
-                doMath();
             
             };
       
@@ -438,8 +438,3 @@ Array.from(buttons).forEach(button => {
        
 
         // }
-
-
-
-
-     
