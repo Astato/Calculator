@@ -299,6 +299,7 @@ function  buttonminus(a,b){
 }
 
 function buttonplus(a,b){
+  
     result.textContent = a+b;
     return a+b;
 }
@@ -306,23 +307,25 @@ function buttonplus(a,b){
 
 
 
-let currentValue;
 
+let currentValue = "";
+let currentOperation = "";
 
 Array.from(buttons).forEach(button => {
 
     button.addEventListener("click",()=>{
 
+    
         if(button.id === buttonAC.id){
             result.textContent = 0;
             adjustFontSize()
-            secondValue = undefined;
+            secondValue = currentValue;
             firstValue = undefined;
         
         }
 
 
-        else if(button.className ==="buttons darkgraybuttons"){
+        if(button.className === "buttons darkgraybuttons"){
 
             if(result.textContent == 0 || doMath === true){
                 result.textContent = button.textContent;
@@ -332,37 +335,76 @@ Array.from(buttons).forEach(button => {
                 adjustFontSize()
                 result.textContent += button.textContent;
                 
+            }         
+        }
+
+    })
+
+
+    button.addEventListener("click",()=>{
+        
+
+        if(button.id !== buttonAC.id && button.id !== buttonPlusMinus.id){
+
+            if(button.className ==="buttons darkgraybuttons"){
+                currentValue += Number(button.textContent);
             }
             
-        }
+            else if(firstValue === undefined && button.className === "buttons orangebuttons" && button.id !== buttonEqual.id){
+                firstValue = currentValue
+                firstValue = Number(firstValue)
+                currentValue = "";
+                currentOperation = button.id;
+                result.textContent = 0;
 
-        else if(button.id !== buttonAC.id){
-            let Makecalculus = button.id;
-            if(button.id !== buttonEqual.id && firstValue === undefined && doMath === false){
-                firstValue = Number(result.textContent);
-                doMath = true;
-            }
-            else if(firstValue !== undefined && doMath ===false && secondValue === undefined){
-                secondValue = Number(result.textContent) 
-                doMath = true;
-
-               
-                let calculus = window[Makecalculus](firstValue,secondValue)
-                return calculus,  secondValue = Number(result.textContent), currentValue = calculus,
-                result.textContent = currentValue, firstValue = currentValue, secondValue = undefined;
-
-
+            }else if(button.className === "buttons orangebuttons" && button.id !== buttonEqual.id){
+                firstValue = firstValue;
+                currentOperation = button.id;
+                result.textContent = 0;
 
             }
 
-       
-
+        else if(currentOperation !== "" && button.id === buttonEqual.id){
+            let calculus = window[currentOperation](firstValue, Number(currentValue))
+            firstValue = calculus;
+            currentValue = ""
+            currentOperation = "";
+            return calculus;
+        
         }
+      
 
-
-
+}
 
 
 
     })
 });
+
+
+
+
+
+    // else if(button.id !== buttonAC.id){
+        //     let Makecalculus = button.id;
+        //     if(button.id !== buttonEqual.id && firstValue === undefined && doMath === false){
+        //         firstValue = Number(result.textContent);
+        //         doMath = true;
+        //     }
+            
+        //     else if(firstValue !== undefined && doMath ===false && secondValue === undefined){
+        //         secondValue = Number(result.textContent) 
+        //         doMath = true;
+
+                
+        //         let calculus = window[Makecalculus](firstValue,secondValue)
+        //         return calculus,  secondValue = Number(result.textContent), currentValue = calculus,
+        //         result.textContent = currentValue, firstValue = currentValue, secondValue = undefined, Makecalculus = undefined;
+
+
+
+        //     }
+
+       
+
+        // }
