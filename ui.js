@@ -456,8 +456,15 @@ Array.from(buttons).forEach(button => {
             }
         
             else if(currentOperation !== "" || button.id === buttonEqual.id){
-                waitForInput.setAttribute("style","orangebuttons")
-                doMath()
+                try {
+                    waitForInput.setAttribute("style","orangebuttons")
+                    doMath()
+                } catch (error) {
+                    return 0;
+                }finally{
+                    buttonAC.textContent = "AC"
+                    return;
+                }
 
             
             };
