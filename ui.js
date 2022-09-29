@@ -12,8 +12,9 @@ container.setAttribute("style",
 
 
 const clock =  document.createElement("p");
-clock.setAttribute("style","color:white; font-weight:900; position:relative;top:7%;right:9%;")
-body.append(clock)
+clock.setAttribute("style","color:white; font-weight:900;margin-left:60px; margin-bottom:60px; margin-top:-60px")
+container.append(clock)
+
 
 function updateTime(){
     let currentTime = new Date();
@@ -31,7 +32,6 @@ setTimeout(updateTime,60000)
 updateTime()
 
 
-
 const resultContainer = document.createElement("div");
 resultContainer.classList.add("resultcontainer");
 resultContainer.setAttribute("style",
@@ -39,6 +39,8 @@ resultContainer.setAttribute("style",
 
 const line0 = document.createElement("div");
 const line1 = document.createElement("div");
+
+
 
 const result = document.createElement("div");
 result.classList.add("result")
@@ -214,8 +216,6 @@ function adjustFontSize(){
         
     }
 
-
-
 }
 
 
@@ -232,7 +232,6 @@ Array.from(lightgrayAnimation).forEach(element => {
 });
 
 
-
 const orangeAnimation= document.getElementsByClassName("orangebuttons");
 
 let waitForInput;
@@ -241,7 +240,6 @@ Array.from(orangeAnimation).forEach(element =>{
 
     element.addEventListener("pointerdown",()=>{ 
         element.setAttribute("style","transition: all 0.06s; background-color:rgb(254,220,184);color:rgb(246,153,3)")
-        waitForInput = element;
      
     });
     element.addEventListener("pointerup", ()=>{
@@ -340,12 +338,6 @@ function buttonpercentage(a,b){
 
 
 
-
-
-
-
-
-
 let currentValue = 0;
 let currentOperation = "";
 let commas = ""; 
@@ -440,12 +432,15 @@ Array.from(buttons).forEach(button => {
                 firstValue = currentValue ///// when operator clicked, saves the value to the "firstValue variable"
                 firstValue = parseFloat(firstValue) //// converts value to number
                 currentValue = 0; //// resets the current value already stored in first value, ready to enter second value
+                waitForInput = button;
                 currentOperation = button.id; ///// saves cureent operator
                 result.textContent =  Number(firstValue).toLocaleString(); /// shows entered value
         
             }
 
             else if(button.className === "buttons orangebuttons" && button.id !== buttonEqual.id && button.id !== buttonPercentage.id){ ///// if firstvalue has a number
+                waitForInput.setAttribute("style","orangebuttons")
+                waitForInput = button;
                 firstValue = firstValue; //// keep it;
                 result.textContent = Number(firstValue).toLocaleString(); //// show input;
                 if(currentOperation !== ""){
@@ -461,7 +456,7 @@ Array.from(buttons).forEach(button => {
             }
         
             else if(currentOperation !== "" || button.id === buttonEqual.id){
-                
+                waitForInput.setAttribute("style","orangebuttons")
                 doMath()
 
             
