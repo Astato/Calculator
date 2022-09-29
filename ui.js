@@ -145,7 +145,7 @@ const filter = Array.from(buttons).filter(name => {
 
     const buttonDot = document.getElementById("button17");
     buttonDot.setAttribute("id","buttondot")
-    buttonDot.textContent =".";
+    buttonDot.innerText = "."
 
 
 ////  Numbers
@@ -287,24 +287,24 @@ let secondValue ;
 
 
 function buttondivision(a,b){
-    result.textContent = a/b;
+    result.textContent = Number(a/b).toLocaleString();
     return a/b;
 }
 
 
 function buttonmultiply(a,b){
-    result.textContent = a*b;
+    result.textContent = Number(a*b).toLocaleString();
     return a*b;
 }
 
 function  buttonminus(a,b){
-    result.textContent = a-b;
+    result.textContent = Number(a-b).toLocaleString();
     return a-b;
 }
 
 function buttonplus(a,b){
   
-    result.textContent = a+b;
+    result.textContent = Number(a+b).toLocaleString();
     return a+b;
 }
 
@@ -318,10 +318,10 @@ function buttonplus(a,b){
 
 
 
+
 let currentValue = "";
 let currentOperation = "";
-
-
+let commas = ""; 
 
 function doMath(){
     let calculus = window[currentOperation](firstValue, Number(currentValue))
@@ -351,17 +351,32 @@ Array.from(buttons).forEach(button => {
 
 
         if(button.className === "buttons darkgraybuttons"){
-
-            if(result.textContent == 0 ){    ///|| doMath === true
-                result.textContent = button.textContent;
-                // doMath = false;
+        
+            
+            if(result.textContent == 0){   
+                commas = button.textContent
+                console.log("commas "+ commas)
             }
+
             else{
                 adjustFontSize()
                 buttonAC.textContent = "C";
-                result.textContent += button.textContent;
+                commas += button.textContent;
+                result.textContent = commas
                 
-            }         
+            }      
+
+
+            if(commas === "." && button.id === buttonDot.id){
+                result.textContent = "."
+                
+            }
+
+            else{
+                result.textContent =  Number(commas).toLocaleString();
+            }
+            
+          
         }
 
     })
@@ -373,25 +388,27 @@ Array.from(buttons).forEach(button => {
         if(button.id !== buttonAC.id && button.id !== buttonPlusMinus.id){
 
             if(button.className ==="buttons darkgraybuttons"){
-                currentValue += Number(button.textContent);
+          
+                currentValue += button.textContent
 
                 if(waitForInput !== undefined ){
                 waitForInput.setAttribute("style","orangebuttons")
-                result.textContent = currentValue;
+                result.textContent = Number(currentValue).toLocaleString();
                 }
 
             }    
             else if(firstValue === undefined && button.className === "buttons orangebuttons" && button.id !== buttonEqual.id){
                 firstValue = currentValue ///// when operator clicked, saves the value to the "firstValue variable"
-                firstValue = Number(firstValue) //// converts value to number
+                firstValue = parseFloat(firstValue) //// converts value to number
                 currentValue = ""; //// resets the current value already stored in first value, ready to enter second value
                 currentOperation = button.id; ///// saves cureent operator
-                result.textContent =  firstValue; /// shows entered value
+                console.log(firstValue)
+                result.textContent =  Number(firstValue).toLocaleString(); /// shows entered value
         
             }
             else if(button.className === "buttons orangebuttons" && button.id !== buttonEqual.id){ ///// if firstvalue has a number
                 firstValue = firstValue; //// keep it;
-                result.textContent = firstValue; //// show input;
+                result.textContent = Number(firstValue).toLocaleString(); //// show input;
                 if(currentOperation !== ""){
                 doMath()}
                 currentOperation = button.id; //// if user changes operation replace it;
@@ -412,29 +429,3 @@ Array.from(buttons).forEach(button => {
 });
 
 
-
-
-
-    // else if(button.id !== buttonAC.id){
-        //     let Makecalculus = button.id;
-        //     if(button.id !== buttonEqual.id && firstValue === undefined && doMath === false){
-        //         firstValue = Number(result.textContent);
-        //         doMath = true;
-        //     }
-            
-        //     else if(firstValue !== undefined && doMath ===false && secondValue === undefined){
-        //         secondValue = Number(result.textContent) 
-        //         doMath = true;
-
-                
-        //         let calculus = window[Makecalculus](firstValue,secondValue)
-        //         return calculus,  secondValue = Number(result.textContent), currentValue = calculus,
-        //         result.textContent = currentValue, firstValue = currentValue, secondValue = undefined, Makecalculus = undefined;
-
-
-
-        //     }
-
-       
-
-        // }
