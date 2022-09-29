@@ -308,6 +308,35 @@ function buttonplus(a,b){
     return a+b;
 }
 
+function buttonplusminus(a,b){
+    b = -1;
+    result.textContent = Number(a+b).toLocaleString();
+}
+
+function buttonpercentage(a,b){
+    let calculus = 0;
+   switch(currentOperation){
+    case "buttonplus": 
+        calculus = a+(a*b/100);
+        result.textContent = Number(a+(a*b/100)).toLocaleString();break
+    case "buttonmultiply": 
+        calculus = (a*b)/100;
+        result.textContent = Number(a*b/100).toLocaleString();break
+    case "buttonminus":
+        calculus = a-(a*b/100);
+        result.textContent = Number(a-(a*b/100)).toLocaleString();break
+    case "buttondivision":
+        calculus = (a/b)/100;
+        result.textContent = Number((a/b)/100).toLocaleString();break
+     }
+    firstValue = calculus;
+    currentValue = 0;
+    currentOperation = "";
+    return;
+
+
+    
+}
 
 
 
@@ -317,16 +346,14 @@ function buttonplus(a,b){
 
 
 
-
-
-let currentValue = "";
+let currentValue = 0;
 let currentOperation = "";
 let commas = ""; 
 
 function doMath(){
     let calculus = window[currentOperation](firstValue, Number(currentValue))
     firstValue = calculus;
-    currentValue = ""
+    currentValue = 0;
     currentOperation = "";
     return calculus;
 }
@@ -348,14 +375,13 @@ Array.from(buttons).forEach(button => {
             buttonAC.textContent = "AC"
             adjustFontSize()
         }
-
+ 
 
         if(button.className === "buttons darkgraybuttons"){
         
             
             if(result.textContent == 0){   
                 commas = button.textContent
-                console.log("commas "+ commas)
             }
 
             else{
@@ -373,7 +399,7 @@ Array.from(buttons).forEach(button => {
             }
 
             else{
-                result.textContent =  Number(commas).toLocaleString();
+                result.textContent = ( Number(commas).toLocaleString());
             }
             
           
@@ -383,13 +409,23 @@ Array.from(buttons).forEach(button => {
 
 
     button.addEventListener("click",()=>{
-        
+           
 
-        if(button.id !== buttonAC.id && button.id !== buttonPlusMinus.id){
-
-            if(button.className ==="buttons darkgraybuttons"){
+        if(button.id !== buttonAC.id ){
           
-                currentValue += button.textContent
+
+            if(button.className ==="buttons darkgraybuttons" || button.id === buttonPlusMinus.id || button.id === buttonPercentage){
+
+                
+                if(button.id !== buttonPlusMinus.id && button.id !== buttonPercentage.id){
+
+                currentValue += button.textContent}
+
+                if(button.id === buttonPlusMinus.id && currentValue != 0){
+                    currentValue =currentValue*-1
+                    result.textContent = Number(currentValue).toLocaleString();
+                }
+
 
                 if(waitForInput !== undefined ){
                 waitForInput.setAttribute("style","orangebuttons")
@@ -397,16 +433,19 @@ Array.from(buttons).forEach(button => {
                 }
 
             }    
+
+
+            
             else if(firstValue === undefined && button.className === "buttons orangebuttons" && button.id !== buttonEqual.id){
                 firstValue = currentValue ///// when operator clicked, saves the value to the "firstValue variable"
                 firstValue = parseFloat(firstValue) //// converts value to number
-                currentValue = ""; //// resets the current value already stored in first value, ready to enter second value
+                currentValue = 0; //// resets the current value already stored in first value, ready to enter second value
                 currentOperation = button.id; ///// saves cureent operator
-                console.log(firstValue)
                 result.textContent =  Number(firstValue).toLocaleString(); /// shows entered value
         
             }
-            else if(button.className === "buttons orangebuttons" && button.id !== buttonEqual.id){ ///// if firstvalue has a number
+
+            else if(button.className === "buttons orangebuttons" && button.id !== buttonEqual.id && button.id !== buttonPercentage.id){ ///// if firstvalue has a number
                 firstValue = firstValue; //// keep it;
                 result.textContent = Number(firstValue).toLocaleString(); //// show input;
                 if(currentOperation !== ""){
@@ -415,8 +454,14 @@ Array.from(buttons).forEach(button => {
                
 
             } 
+
+            else if(button.id === buttonPercentage.id){
+                buttonpercentage(firstValue,currentValue);
+
+            }
         
             else if(currentOperation !== "" || button.id === buttonEqual.id){
+                
                 doMath()
 
             
@@ -429,3 +474,4 @@ Array.from(buttons).forEach(button => {
 });
 
 
+console.log(currentValue)
