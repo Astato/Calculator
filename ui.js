@@ -4,17 +4,18 @@ const body = document.querySelector("body");
 body.setAttribute("style",
 "display:flex; flex-direction:column ;justify-content:center; align-items:center; margin-top: 0; background-color:grey; ");
 
+
 const bodyWidth = body.offsetWidth;
 const bodyHeight = body.offsetHeight;
 
 const container = document.createElement("div");
 container.classList.add("container")
 container.setAttribute("style",
-"margin-top: 3rem; height:0; padding:6rem 0 50rem 0; background-image:url(calculatorbackground.png); background-position-x:center; background-repeat: no-repeat;background-size:contain;" )
+"margin-top: 0; height:0; padding:1rem 0 42rem 0; background-image:url(calculatorbackground.png); background-position-x:center; background-repeat: no-repeat;background-size:contain;" )
 
 
 const clock =  document.createElement("p");
-clock.setAttribute("style","color:white; font-weight:900;margin-left:60px; margin-bottom:60px; margin-top:-60px")
+clock.setAttribute("style","color:white; font-weight:900;margin-left:6rem; margin-bottom:60px; margin-top:1rem")
 container.append(clock)
 
 
@@ -37,7 +38,7 @@ updateTime()
 const resultContainer = document.createElement("div");
 resultContainer.classList.add("resultcontainer");
 resultContainer.setAttribute("style",
-"display:grid; grid-template-rows: repeat(3,auto);color:white; margin:auto; width:30rem; height:15rem; margin-top:-30px")
+"display:grid;  grid-template-rows: repeat(3,auto);color:white; margin:auto; width:20rem; height:15rem; margin-top:-7rem")
 
 const line0 = document.createElement("div");
 const line1 = document.createElement("div");
@@ -47,7 +48,7 @@ const line1 = document.createElement("div");
 const result = document.createElement("div");
 result.classList.add("result")
 result.setAttribute("style",
-"position:relative;bottom:2rem; margin-right:3rem;text-align:right;font-size:100px; height:0; font-weight: 1;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;")
+"position:relative; margin-right:1.5rem;text-align:right;font-size:80px; height:0; font-weight: 1;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;")
 result.textContent = 0;
 
 
@@ -56,7 +57,7 @@ resultContainer.append(line0,line1,result)
 
 const buttonscontainer = document.createElement("div");
 buttonscontainer.classList.add("buttonscontainer")
-buttonscontainer.setAttribute("style","display:grid; grid-template-rows:repeat(5,5rem);grid-template-columns: repeat(4,5rem); gap:20px; padding: 1rem 3rem  3rem; ")
+buttonscontainer.setAttribute("style","display:grid; grid-template-rows:repeat(5,3.7rem);grid-template-columns: repeat(4,3.7rem); gap:1rem; padding: 2rem 6rem; ")
 
 body.appendChild(container)
 container.append(resultContainer,buttonscontainer)
@@ -193,19 +194,19 @@ function adjustFontSize(){
 
     if(result.textContent.length <=5){
         resultContainer.setAttribute("style",
-        "display:grid; grid-template-rows: repeat(3,auto);color:white; margin:auto; width:429px;height:237px; margin-top:-30px; overflow-x:hidden")
+        "display:grid; grid-template-rows: repeat(3,auto);color:white; margin:auto; width:20rem; height:15rem; margin-top:-7rem; overflow-x:hidden")
         result.setAttribute("style",
-"position:relative;bottom:45%; margin-right:40px;text-align:right;font-size:100px; height:0; font-weight: 1;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;")
+"position:relative;bottom:0; margin-right:1.5rem;text-align:right;font-size:80px; height:0; font-weight: 1;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;")
     }
    if(result.textContent.length >5 && result.textContent.length <9){
         result.setAttribute("style",
-"position:relative;bottom:25%; margin-right:40px;text-align:right;font-size:70px; height:0; font-weight: 1;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;")
+"position:relative;bottom:0; margin-right:1.5rem;text-align:right;font-size:60px; height:0; font-weight: 1;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;")
     }
     else if(result.textContent.length >9) {
         resultContainer.setAttribute("style",
-        "display:grid; grid-template-rows: repeat(3,auto);color:white; margin:auto; width:429px;height:237px; margin-top:-30px; overflow-x:scroll")
+        "display:grid; grid-template-rows: repeat(3,auto);color:white; margin:auto; width:20rem; height:15rem; margin-top:-7rem; overflow-x:scroll")
      result.setAttribute("style",
-    "position:relative;bottom:1%; margin-right:40px;text-align:right;font-size:50px; height:0; font-weight: 1;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;")
+    "position:relative;bottom:0; margin-right:1.5rem;text-align:right;font-size:40px; height:0; font-weight: 1;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;")
         
     }
 
