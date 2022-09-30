@@ -206,6 +206,51 @@ function adjustFontSize(){ /////adjust text size on result line text
 
 }
 
+window.addEventListener("keypress", function(e){
+    const event = new Event("click");
+    switch(e.code){
+        case "Digit0":
+        case "Numpad0": buttonZero.dispatchEvent(event);break;
+
+        case "Digit1":
+        case "Numpad1": button1.dispatchEvent(event);break;
+
+        case "Digit2":
+        case "Numpad2": button2.dispatchEvent(event);break;
+
+        case "Digit3":
+        case "Numpad3": button3.dispatchEvent(event);break;
+
+        case "Digit4":
+        case "Numpad4": button4.dispatchEvent(event);break;
+
+        case "Digit5":
+        case "Numpad5": button5.dispatchEvent(event);break;
+
+        case "Digit6":
+        case "Numpad6": button6.dispatchEvent(event);break;
+
+        case "Digit7":
+        case "Numpad7": button7.dispatchEvent(event);break;
+
+        case "Digit8":
+        case "Numpad8": button8.dispatchEvent(event);break;
+
+        case "Digit9":
+        case "Numpad9": button9.dispatchEvent(event);break;
+
+        case "Digit2":
+        case "Numpad2": button2.dispatchEvent(event);break;
+
+        case "NumpadDivide": buttonDivision.dispatchEvent(event);break;
+        case "NumpadMultiply": buttonMultiply.dispatchEvent(event);break;
+        case "NumpadSubtract": buttonMinus.dispatchEvent(event);break;
+        case "NumpadAdd": buttonPlus.dispatchEvent(event);break;
+        case "NumpadEnter": buttonEqual.dispatchEvent(event);break;
+        case "NumpadDecimal": buttonDot.dispatchEvent(event);break;
+
+    };
+});
 
 const lightgrayAnimation = document.getElementsByClassName("lightgraybuttons") ;
 Array.from(lightgrayAnimation).forEach(element => {
