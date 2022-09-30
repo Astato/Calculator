@@ -1,14 +1,16 @@
 const html = document.querySelector("html")
-html.setAttribute("style","height:100vh")
 
 const body = document.querySelector("body");
 body.setAttribute("style",
-"display:flex; flex-direction:column ;justify-content:center; align-items:center; margin-top: 0; height:100vh; background-color:grey; ");
+"display:flex; flex-direction:column ;justify-content:center; align-items:center; margin-top: 0; background-color:grey; ");
+
+const bodyWidth = body.offsetWidth;
+const bodyHeight = body.offsetHeight;
 
 const container = document.createElement("div");
 container.classList.add("container")
 container.setAttribute("style",
-"margin-top: 0%; height:0; padding:100px 0px 804px 0px; background-image:url(calculatorbackground.png); background-position-x:center; background-repeat: no-repeat;background-size:contain;" )
+"margin-top: 3rem; height:0; padding:6rem 0 50rem 0; background-image:url(calculatorbackground.png); background-position-x:center; background-repeat: no-repeat;background-size:contain;" )
 
 
 const clock =  document.createElement("p");
@@ -35,7 +37,7 @@ updateTime()
 const resultContainer = document.createElement("div");
 resultContainer.classList.add("resultcontainer");
 resultContainer.setAttribute("style",
-"display:grid; grid-template-rows: repeat(3,auto);color:white; margin:auto; width:429px;height:237px; margin-top:-30px")
+"display:grid; grid-template-rows: repeat(3,auto);color:white; margin:auto; width:30rem; height:15rem; margin-top:-30px")
 
 const line0 = document.createElement("div");
 const line1 = document.createElement("div");
@@ -45,7 +47,7 @@ const line1 = document.createElement("div");
 const result = document.createElement("div");
 result.classList.add("result")
 result.setAttribute("style",
-"position:relative;bottom:45%; margin-right:40px;text-align:right;font-size:100px; height:0; font-weight: 1;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;")
+"position:relative;bottom:2rem; margin-right:3rem;text-align:right;font-size:100px; height:0; font-weight: 1;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;")
 result.textContent = 0;
 
 
@@ -54,7 +56,7 @@ resultContainer.append(line0,line1,result)
 
 const buttonscontainer = document.createElement("div");
 buttonscontainer.classList.add("buttonscontainer")
-buttonscontainer.setAttribute("style","display:grid; grid-template-rows:repeat(5,80px);grid-template-columns: repeat(4,80px); gap:20px; padding: 12px 50px  50px; ")
+buttonscontainer.setAttribute("style","display:grid; grid-template-rows:repeat(5,5rem);grid-template-columns: repeat(4,5rem); gap:20px; padding: 1rem 3rem  3rem; ")
 
 body.appendChild(container)
 container.append(resultContainer,buttonscontainer)
@@ -159,39 +161,30 @@ const filter = Array.from(buttons).filter(name => {
     buttonZero.textContent = 0;
 
     const button1 = document.getElementById("button12");
-    button1.setAttribute("id","button1")
     button1.textContent = 1;
 
     const button2 = document.getElementById("button13");
-    button2.setAttribute("id","button2")
     button2.textContent =2;
 
     const button3 = document.getElementById("button14");
-    button3.setAttribute("id","button3")
     button3.textContent = 3;
 
     const button4 = document.getElementById("button8");
-    button4.setAttribute("id","button4")
     button4.textContent =4;
 
     const button5 = document.getElementById("button9");
-    button5.setAttribute("id","button5")
     button5.textContent = 5;
 
     const button6 = document.getElementById("button10");
-    button6.setAttribute("id","button6")
     button6.textContent = 6;
 
     const button7 = document.getElementById("button4");
-    button7.setAttribute("id","button7")
     button7.textContent = 7;
 
     const button8 = document.getElementById("button5");
-    button8.setAttribute("id","button8")
     button8.textContent = 8;
 
     const button9 = document.getElementById("button6");
-    button9.setAttribute("id","button0")
     button9.textContent = 9;
 
 
