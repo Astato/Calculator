@@ -316,8 +316,7 @@ function doMath(){
     let calculus = window[currentOperation](firstValue, Number(currentValue));
     firstValue = calculus;
     if(calculus.toString().length >= 12){
-        console.log("asd")
-        result.textContent = calculus.toPrecision(11).toLocaleString()
+        result.textContent = toDecimal(calculus.toPrecision(11))
         adjustFontSize()
     }
     else{
