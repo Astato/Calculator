@@ -55,7 +55,6 @@ buttonscontainer.setAttribute("style","display:grid; grid-template-rows:repeat(5
 body.appendChild(container);
 container.append(resultContainer,buttonscontainer);
 
-
 let index = 0;
 let id = "button"+index;
 const createButtons = {    ////create and append buttons;
@@ -186,22 +185,15 @@ const filter = Array.from(buttons).filter(name => {     ///// add style/class to
 function adjustFontSize(){ /////adjust text size on result line text
 
     if(result.textContent.length <=5){
-        resultContainer.setAttribute("style",
-        "display:grid; grid-template-rows: repeat(3,auto);color:white; margin:auto; width:20rem; height:15rem; margin-top:-7rem; overflow-x:hidden");
-
-        result.setAttribute("style",
-        "position:relative;bottom:0; margin-right:1.5rem;text-align:right;font-size:80px; height:0; font-weight: 1;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;")
+        resultContainer.style.overflow = "hidden"
+        result.style.fontSize = "80px"
     }
    else if(result.textContent.length >5 && result.textContent.length <9){
-        result.setAttribute("style",
-        "position:relative;bottom:0; margin-right:1.5rem;text-align:right;font-size:60px; height:0; font-weight: 1;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;")
+    result.style.fontSize = "60px"
     }
     else if(result.textContent.length >9) {
-        resultContainer.setAttribute("style",
-        "display:grid; grid-template-rows: repeat(3,auto);color:white; margin:auto; width:20rem; height:15rem; margin-top:-7rem; overflow-x:scroll");
-        result.setAttribute("style",
-        "position:relative;bottom:0; margin-right:1.5rem;text-align:right;font-size:50px; height:0; font-weight: 1;font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;")
-        
+        resultContainer.style.overflowX = "scroll";
+        result.style.fontSize = "45px"
     }
 
 }
@@ -239,78 +231,41 @@ window.addEventListener("keypress", function(e){
         case "Digit9":
         case "Numpad9": button9.dispatchEvent(event);break;
 
-        case "Digit2":
-        case "Numpad2": button2.dispatchEvent(event);break;
-
         case "NumpadDivide": buttonDivision.dispatchEvent(event);break;
         case "NumpadMultiply": buttonMultiply.dispatchEvent(event);break;
         case "NumpadSubtract": buttonMinus.dispatchEvent(event);break;
         case "NumpadAdd": buttonPlus.dispatchEvent(event);break;
         case "NumpadEnter": buttonEqual.dispatchEvent(event);break;
         case "NumpadDecimal": buttonDot.dispatchEvent(event);break;
-
-    };
+    };  
 });
+
 
 let waitForInput;
 
-
 Array.from(buttons).forEach(element => {
-
+    
     if(element.className === "buttons lightgraybuttons"){
 
-        element.addEventListener("pointerdown",()=>{
-            element.setAttribute("style", "transition: all 0.06s;background-color:rgb(216,216,216)");
-            
-        });
-        element.addEventListener("pointerup", ()=>{
-            element.setAttribute("style","lightgraybuttons");
-        });
-
+        element.addEventListener("pointerdown",()=>{element.setAttribute("style", "transition: all 0.06s;background-color:rgb(216,216,216)")});
+        element.addEventListener("pointerup", () =>{element.setAttribute("style","lightgraybuttons")});
     }
-    
     else if(element.className === "buttons orangebuttons"){
 
-        element.addEventListener("pointerdown",()=>{ 
-            element.setAttribute("style","transition: all 0.06s; background-color:rgb(254,220,184);color:rgb(246,153,3)");
-        
-        });
+        element.addEventListener("pointerdown",()=>{ element.setAttribute("style","transition: all 0.06s; background-color:rgb(254,220,184);color:rgb(246,153,3)");});
+
         element.addEventListener("pointerup", ()=>{
             if(element.id === buttonEqual.id){
             element.setAttribute("style","orangebuttons");
             }
         });
     }
-
-
     else if(element.className === "buttons darkgraybuttons"){
-
-        if(element.id !== "buttonzero"){
-
-            element.addEventListener("pointerdown",()=>{
-                element.setAttribute("style","transition: all 0.06s; background-color:rgb(114,114,114); ");
-            });
-
-            element.addEventListener("pointerup",()=>{
-                element.setAttribute("style","darkgraybuttons; ");
-            });
-        }
-
-        else{
-
-            element.addEventListener("pointerdown",()=>{
-                element.setAttribute("style", 
-                "transition:all 0.06; grid-column:span 2;background-color:rgb(114,114,114); color:rgb(253,253,253);border-radius:32% / 80% ;border: none;text-align:left;padding-left: 25px; font-size:43px; ")
-            });
-            element.addEventListener("pointerup",()=>{
-                element.setAttribute("style",
-                "grid-column:span 2;background-color:rgb(49,49,49); color:rgb(253,253,253);border-radius:32% / 80% ;border: none;text-align:left;padding-left: 25px; font-size:43px")
-            });
-        }
+            element.addEventListener("pointerdown",()=>{element.style.backgroundColor = "rgb(114,114,114)"});
+            element.addEventListener("pointerup",()=>{element.style.backgroundColor ="rgb(49,49,49)" ;});
     }
-
+    
 });
-
 
 
 let firstValue ;
@@ -348,7 +303,7 @@ function buttonpercentage(a,b){
     firstValue = calculus;
     currentValue = 0;
     currentOperation = "";
-    return result.textContent = Number(calculus).toLocaleString();
+    return result.textContent = toDecimal(calculus);
     
 }
 
@@ -361,14 +316,22 @@ function doMath(){
     let calculus = window[currentOperation](firstValue, Number(currentValue));
     firstValue = calculus;
     if(calculus.toString().length >= 12){
-        result.textContent = calculus.toPrecision(12)
+        console.log("asd")
+        result.textContent = calculus.toPrecision(11).toLocaleString()
+        adjustFontSize()
     }
     else{
-    result.textContent = Number(calculus).toLocaleString()}
+    result.textContent = toDecimal(calculus)}
     adjustFontSize()
     currentValue = 0;
     currentOperation = "";
     return;
+}
+
+
+
+function toDecimal(x){
+    return parseFloat(x).toLocaleString(undefined,{minimumFractionDigits:0, maximumFractionDigits: 8})
 }
 
 
@@ -390,6 +353,9 @@ Array.from(buttons).forEach(button => {
         }
 
         if(button.className === "buttons darkgraybuttons"){
+            if(commas.indexOf(".")!==-1 && button.id === buttonDot.id){
+                return
+            } 
 
             if(result.textContent == 0){   
                 commas = button.textContent;
@@ -401,68 +367,68 @@ Array.from(buttons).forEach(button => {
                 buttonAC.textContent = "C";
                 commas += button.textContent;
                 result.textContent = commas;
-                
-            }      
-
-            result.textContent = ( Number(commas).toLocaleString()); 
-
-        
+            }     
+      
+            result.textContent>=3 ? result.textContent= toDecimal(commas): result.textContent = commas
         }
+            
            
 
         if(button.id !== buttonAC.id ){
           
             if(button.className ==="buttons darkgraybuttons" || button.id === buttonPlusMinus.id || button.id === buttonPercentage){
+
                 if(resetResult === true && button.className === "buttons darkgraybuttons"){
                     firstValue = undefined;
                     resetResult = false;
                 }
                 
-                if(button.id !== buttonPlusMinus.id && button.id !== buttonPercentage.id ){
-                    currentValue += button.textContent; }
+                if(button.className === "buttons darkgraybuttons"){
+                    currentValue += button.textContent;}
 
-                if(button.id === buttonPlusMinus.id && currentValue !== 0) {
-
+                if(button.id === buttonPlusMinus.id ){
+                    if(currentValue !== 0){
                     currentValue =currentValue*-1;
-                    result.textContent = Number(currentValue).toLocaleString();       
-                }
-                else if(button.id === buttonPlusMinus.id && currentValue === 0){
+                    result.textContent = toDecimal(currentValue);     
+                    }  
+                    else{
                     firstValue *=-1 
-                    result.textContent = Number(firstValue).toLocaleString()
-                }
+                    console.log(typeof firstValue)
+                    result.textContent = toDecimal(firstValue)}
+                    }
+      
 
-
-                if(waitForInput !== undefined && currentValue !== 0 ){
-                waitForInput.setAttribute("style","orangebuttons");
-                result.textContent = Number(currentValue).toLocaleString(); //// keeps operator (UI) selected until another anumber is pressed
+                if(waitForInput !== undefined && currentValue !== 0 ){//// keeps operator (UI) selected until another anumber is pressed
+                    waitForInput.setAttribute("style","orangebuttons");
+                    adjustFontSize()
                 }
 
             }    
 
-            
             else if(firstValue === undefined && button.className === "buttons orangebuttons" && button.id !== buttonEqual.id){
-                firstValue = parseFloat(currentValue) ;///// when operator clicked, saves the value to the "firstValue variable"
+                
+                firstValue = Number(currentValue) ;///// when operator clicked, saves the value to the "firstValue variable"
                 currentValue = 0; //// resets the current value already stored in first value, ready to enter second value
                 waitForInput = button;
                 currentOperation = button.id; ///// saves cureent operator
+                result.textContent = toDecimal(firstValue)
+                commas = ""
          
-        
             }
 
             else if(button.className === "buttons orangebuttons" && button.id !== buttonEqual.id){ ///// if firstvalue has a number
                 resetResult = false;
                 waitForInput.setAttribute("style","orangebuttons") //// if operator (ui) is changed resets style from previos selection to "unsulected"
                 waitForInput = button;
+                commas = ""
                 if(currentOperation !== ""){ //// if a value is intered call funciton,
                 doMath();
                 }
                 currentOperation = button.id; //// if user changes operation replace it;
-               
             } 
 
             else if(button.id === buttonPercentage.id){
                 buttonpercentage(firstValue,currentValue);
-
             }
         
             else if(currentOperation !== "" || button.id === buttonEqual.id){ ////execute function if users pressed an operator with stored values or Equal symbol.
@@ -480,11 +446,10 @@ Array.from(buttons).forEach(button => {
                     return;
                 }
 
-            
             };
       
         };
 
     });
 
-});
+}); ///end foreach
